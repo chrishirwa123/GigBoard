@@ -1,0 +1,329 @@
+/* ============================================
+   GigBoard — Auth screens
+   ============================================ */
+:root {
+  --ink: #14162b;
+  --paper: #faf9f6;
+  --line: #e7e3d9;
+  --gold: #c98a2c;
+  --gold-deep: #a66f1e;
+  --text-muted: #6b6f76;
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--paper);
+}
+
+/* ============================================
+   Layout
+   ============================================ */
+.page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.panel {
+  position: relative;
+}
+
+/* ---------- Photo panel ---------- */
+.panel-photo {
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(20, 22, 43, 0.15) 0%,
+      rgba(20, 22, 43, 0.75) 100%
+    ),
+    url("https://images.unsplash.com/photo-1743631951441-305c2a6b0487?fm=jpg&q=80&w=1400&auto=format&fit=crop");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  padding: 56px;
+  animation: photoZoom 24s ease-in-out infinite alternate;
+}
+
+@keyframes photoZoom {
+  from {
+    background-size: 100%;
+  }
+  to {
+    background-size: 112%;
+  }
+}
+
+.photo-caption {
+  color: #fff;
+  max-width: 420px;
+  animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.photo-mark {
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f2c877;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.photo-caption h2 {
+  font-family: var(--font-display);
+  font-size: 32px;
+  line-height: 1.2;
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+
+.photo-caption p {
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ---------- Form panel ---------- */
+.panel-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 40px;
+}
+
+.form-wrap {
+  width: 100%;
+  max-width: 440px;
+  animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.logo-mark {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--ink);
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo h1 {
+  font-family: var(--font-display);
+  font-size: 21px;
+  margin: 0;
+}
+
+.logo p {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ---------- Role toggle (segmented control) ---------- */
+.role-toggle {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--paper);
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  margin-bottom: 26px;
+}
+
+.role-toggle input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.role-pill {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  font-size: 13.5px;
+  font-weight: 500;
+  padding: 10px 0;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+
+.role-indicator {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  height: calc(100% - 8px);
+  background: var(--ink);
+  border-radius: var(--radius-sm);
+  transition: transform 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+  z-index: 1;
+}
+
+#role-worker:checked ~ label[for="role-worker"],
+#role-employer:checked ~ label[for="role-employer"] {
+  color: #fff;
+}
+
+#role-employer:checked ~ .role-indicator {
+  transform: translateX(100%);
+}
+
+/* ---------- Inputs ---------- */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.input-group label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.input-group input {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--line);
+  background: #fff;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.input-group input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(201, 138, 44, 0.14);
+}
+
+/* ---------- Submit ---------- */
+.submit-btn {
+  width: 100%;
+  margin-top: 8px;
+  padding: 14px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--ink);
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(20, 22, 43, 0.18);
+}
+
+.submit-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.bottom {
+  text-align: center;
+  margin-top: 22px;
+  font-size: 13.5px;
+  color: var(--text-muted);
+}
+
+.bottom a {
+  color: var(--gold-deep);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.bottom a:hover {
+  text-decoration: underline;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (max-width: 900px) {
+  .page {
+    grid-template-columns: 1fr;
+  }
+  .panel-photo {
+    min-height: 220px;
+    padding: 32px;
+    animation: none;
+  }
+  .photo-caption h2 {
+    font-size: 24px;
+  }
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .panel-form {
+    padding: 32px 24px;
+  }
+}
+
+/* ============================================
+   Accessibility
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .panel-photo {
+    animation: none;
+  }
+  .photo-caption,
+  .form-wrap {
+    animation: none;
+  }
+  .submit-btn:hover {
+    transform: none;
+  }
+}
